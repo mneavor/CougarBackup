@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QFileDialog>
 #include <string>
+#include <QComboBox>
 using namespace std;
 
 namespace Ui {
@@ -24,6 +25,7 @@ private slots:
     void start_button();
     void cancel_button();
     void browse_button();
+    void os_combobox();
     void name_textfield();
     void number_textfield();
     void calculate_destination();
@@ -33,6 +35,7 @@ private:
     QString number_text;
     QString source_str;
     QString destination_str;
+    QString os_str;
     QString default_directory;
 };
 

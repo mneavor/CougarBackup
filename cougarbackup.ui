@@ -109,9 +109,18 @@
     <rect>
      <x>70</x>
      <y>100</y>
-     <width>111</width>
+     <width>118</width>
      <height>26</height>
     </rect>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QComboBox::AdjustToContents</enum>
    </property>
    <item>
     <property name="text">
@@ -172,13 +181,13 @@
     </rect>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="textBrowser_rsyncOptions">
+  <widget class="QTextBrowser" name="textBrowser_backupStats">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>190</y>
-     <width>301</width>
-     <height>21</height>
+     <x>220</x>
+     <y>30</y>
+     <width>171</width>
+     <height>91</height>
     </rect>
    </property>
   </widget>
@@ -206,19 +215,6 @@
    </property>
    <property name="text">
     <string>Destination:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_rsyncOptions">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>190</y>
-     <width>71</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>rsync Opt:</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_name">
@@ -252,6 +248,19 @@
    </property>
    <property name="text">
     <string>Browse...</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_backupStats">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>10</y>
+     <width>111</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Backup Statistics:</string>
    </property>
   </widget>
  </widget>
