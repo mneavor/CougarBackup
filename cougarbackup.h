@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
+#include <QFileDialog>
+#include <string>
+using namespace std;
 
 namespace Ui {
 class CougarBackup;
@@ -20,9 +23,17 @@ public:
 private slots:
     void start_button();
     void cancel_button();
-
+    void browse_button();
+    void name_textfield();
+    void number_textfield();
+    void calculate_destination();
 private:
     Ui::CougarBackup *ui;
+    QString name_text;
+    QString number_text;
+    QString source_str;
+    QString destination_str;
+    QString default_directory;
 };
 
 #endif // COUGARBACKUP_H

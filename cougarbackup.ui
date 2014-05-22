@@ -13,16 +13,6 @@
   <property name="windowTitle">
    <string>CougarBackup</string>
   </property>
-  <widget class="QTextEdit" name="textEdit_name">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>10</y>
-     <width>91</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_name">
    <property name="geometry">
     <rect>
@@ -49,47 +39,17 @@
     <string>Number:</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="textEdit_number">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>40</y>
-     <width>91</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QDateEdit" name="dateEdit_date">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>70</y>
-     <width>91</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="calendarPopup">
-    <bool>true</bool>
-   </property>
-   <property name="date">
-    <date>
-     <year>2014</year>
-     <month>1</month>
-     <day>1</day>
-    </date>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_date">
+  <widget class="QLabel" name="label_diskLocation">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>70</y>
-     <width>61</width>
+     <width>91</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Date:</string>
+    <string>Disk Location:</string>
    </property>
   </widget>
   <widget class="QProgressBar" name="progressBar_rsyncProgress">
@@ -259,6 +219,39 @@
    </property>
    <property name="text">
     <string>rsync Opt:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_name">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>10</y>
+     <width>113</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_number">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>40</y>
+     <width>113</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_browse">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>70</y>
+     <width>114</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Browse...</string>
    </property>
   </widget>
  </widget>
