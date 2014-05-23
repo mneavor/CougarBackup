@@ -23,8 +23,9 @@ CougarBackup::CougarBackup(QWidget *parent) :
     connect(ui->lineEdit_number, SIGNAL(editingFinished()), this, SLOT(number_textfield()));
 
     /* Setup ComboBox
+     * currentIndexChanged(int) -> "int" is important for making it work
     */
-    connect(ui->comboBox_os, SIGNAL(activated()), this, SLOT(os_combobox()));
+    connect(ui->comboBox_os, SIGNAL(currentIndexChanged(int)), this, SLOT(os_combobox()));
 }
 void CougarBackup::os_combobox()
 {
