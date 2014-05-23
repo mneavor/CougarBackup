@@ -86,7 +86,6 @@ void CougarBackup::number_textfield()
 
 void CougarBackup::calculate_destination()
 {
-    get_config();
     destination_str.clear();
     //default_directory.clear();
     //default_directory.append("/media/backupfolder/");
@@ -101,8 +100,11 @@ void CougarBackup::get_config()
 {
     QFile config_file("settings.cfg");
     if (!config_file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        default_directory.clear();
+        default_directory.append("Error Reading Config");
         return; //terminate if settings.cfg is not found
-
+    }
     QTextStream in(&config_file);
     QString line = in.readLine();//read in default directory
     default_directory.clear();
