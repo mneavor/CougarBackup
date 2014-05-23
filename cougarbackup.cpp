@@ -40,8 +40,7 @@ void CougarBackup::update_backup_stats()
 
     // Take the backup size in bytes, convert it to GB
     backup_stats.append("\nBackupSize: ");
-    backup_stats.append(QString::number(source_size/1000000000,'f', 3));
-    backup_stats.append(" GB");
+    backup_stats.append(source_size.c_str());
 
     // Write to backup_stats box
     ui->textBrowser_backupStats->setText(backup_stats);
@@ -56,8 +55,8 @@ void CougarBackup::os_combobox()
 
 void CougarBackup::start_button()
 {
-    source_size = compute_source_size(source_str);
-    update_backup_stats();
+    //source_size = compute_source_size(source_str);
+    //update_backup_stats();
 }
 
 void CougarBackup::cancel_button()
@@ -68,6 +67,7 @@ void CougarBackup::cancel_button()
 void CougarBackup::browse_button()
 {
     source_str = QFileDialog::getExistingDirectory();
+    source_size = compute_source_size(source_str);
     ui->textBrowser_source->setText(source_str);
     update_backup_stats();
 }
@@ -112,14 +112,33 @@ void CougarBackup::get_config()
     default_directory.append(line);
 }
 
-double CougarBackup::compute_source_size(const QString &path)
+string CougarBackup::compute_source_size(const QString &path)
 {
-    string s1 = "du -c ";
+    string s1 = "du -hc ";
     string s2 = path.toStdString();
     string s3 = " | tail -n 1 | awk '{print $1}'";
     string s4 = s1 + s2 + s3;
-    double size = system(s4.c_str());
-    return size;
+    //double size = system(s4.c_str());
+    // popen
+    //FILE *file_size = popen(s4.c_str(), "r");
+
+    FILE *fpipe;
+    const char *command = s4.c_str();
+    char line[256];
+
+    if (0 == (fpipe = (FILE*)popen(command, "r")))
+    {
+        perror("popen() failed.");
+        exit(1);
+    }
+
+    while (fread(line, sizeof line, 1, fpipe))
+    {
+        printf("%s", line);
+    }
+    pclose(fpipe);
+    source_size = line;
+    return line;
 }
 
 //function to grab the common directories that we backup, spcifically the users and the config (on windows). This way we can narrow down the search easier

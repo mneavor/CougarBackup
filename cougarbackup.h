@@ -34,7 +34,7 @@ private slots:
     void number_textfield();
     void calculate_destination();
     void get_config();
-    double compute_source_size(const QString &path);
+    string compute_source_size(const QString &path);
     void update_backup_stats();
     void get_directories();
 private:
@@ -46,7 +46,7 @@ private:
     QString backup_stats;
     QString os_str;
     QString default_directory;
-    double source_size;
+    string source_size;
     queue<QDir> folders;
 };
 
