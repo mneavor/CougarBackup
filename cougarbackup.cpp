@@ -103,7 +103,7 @@ void CougarBackup::get_config()
     if (!config_file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         default_directory.clear();
-        default_directory.append("Error Reading Config");
+        default_directory.append("/media/backupfolder/");
         return; //terminate if settings.cfg is not found
     }
     QTextStream in(&config_file);
