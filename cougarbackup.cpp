@@ -98,7 +98,8 @@ void CougarBackup::calculate_destination()
 
 void CougarBackup::get_config()
 {
-    QFile config_file("settings.cfg");
+    //Reads in settings file from CougarBackup Folder
+    QFile config_file("../CougarBackup/settings.cfg");
     if (!config_file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         default_directory.clear();
