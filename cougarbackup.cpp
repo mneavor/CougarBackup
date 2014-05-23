@@ -26,14 +26,15 @@ CougarBackup::CougarBackup(QWidget *parent) :
      * currentIndexChanged(int) -> "int" is important for making it work
     */
     connect(ui->comboBox_os, SIGNAL(currentIndexChanged(int)), this, SLOT(os_combobox()));
+
+    /*Grab config settings*/
+    get_config();
 }
 void CougarBackup::os_combobox()
 {
-    //os_str = QFileDialog::getExistingDirectory();
     os_str.clear();
     os_str = ui->comboBox_os->currentText();
     ui->textBrowser_backupStats->setText(os_str);
-    //os_str = comboBox_os->itemData(comboBox_os->currentIndex());
 }
 
 void CougarBackup::start_button()
@@ -67,13 +68,24 @@ void CougarBackup::number_textfield()
 void CougarBackup::calculate_destination()
 {
     destination_str.clear();
-    default_directory.clear();
-    default_directory.append("/media/backupfolder/");
+    //default_directory.clear();
+    //default_directory.append("/media/backupfolder/");
     destination_str.append(default_directory);
     destination_str.append(name_text);
     destination_str.append(number_text);
-    destination_str.append(os_str);
     ui->textBrowser_destination->setText(destination_str);
+}
+
+void CougarBackup::get_config()
+{
+    QFile config_file("settings.cfg");
+    if (!config_file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return; //terminate if settings.cfg is not found
+
+    QTextStream in(&config_file);
+    QString line = in.readLine();//read in default directory
+    default_directory.clear();
+    default_directory.append(line);
 }
 
 CougarBackup::~CougarBackup()

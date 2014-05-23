@@ -5,6 +5,8 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QFileDialog>
+#include <QFile>
+#include <QTextStream>
 #include <string>
 #include <QComboBox>
 using namespace std;
@@ -29,6 +31,7 @@ private slots:
     void name_textfield();
     void number_textfield();
     void calculate_destination();
+    void get_config();
 private:
     Ui::CougarBackup *ui;
     QString name_text;
