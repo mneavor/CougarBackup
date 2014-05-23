@@ -9,6 +9,8 @@
 #include <QTextStream>
 #include <string>
 #include <QComboBox>
+#include <queue>
+#include <QDir>
 using namespace std;
 
 namespace Ui {
@@ -34,6 +36,7 @@ private slots:
     void get_config();
     qlonglong compute_source_size(const QString &path);
     void update_backup_stats();
+    void get_directories();
 private:
     Ui::CougarBackup *ui;
     QString name_text;
@@ -44,6 +47,7 @@ private:
     QString os_str;
     QString default_directory;
     qlonglong source_size;
+    queue<QDir> folders;
 };
 
 #endif // COUGARBACKUP_H

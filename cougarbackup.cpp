@@ -134,6 +134,35 @@ qlonglong CougarBackup::compute_source_size(const QString &path)
     return size;
 }
 
+//function to grab the common directories that we backup, spcifically the users and the config (on windows). This way we can narrow down the search easier
+void CougarBackup::get_directories(){
+//check the target OS
+
+    if(os_str == "Mac"){//mac
+
+       QDir users(source_str + "/Users");
+
+       folders.push(users);
+
+
+    }else if(os_str == "Linux"){//Linux
+
+           QDir users(source_str + "/Home"); //I think this will be the right path
+
+           folders.push(users);
+
+        }else{//is windows
+
+            QDir config(source_str + "\\Windows\\Systm32\\config");
+            QDir users("\\Users");
+
+            folders.push(config);
+            folders.push(users);
+
+    }
+
+}
+
 CougarBackup::~CougarBackup()
 {
     delete ui;
