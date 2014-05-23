@@ -32,14 +32,18 @@ private slots:
     void number_textfield();
     void calculate_destination();
     void get_config();
+    qlonglong compute_source_size(const QString &path);
+    void update_backup_stats();
 private:
     Ui::CougarBackup *ui;
     QString name_text;
     QString number_text;
     QString source_str;
     QString destination_str;
+    QString backup_stats;
     QString os_str;
     QString default_directory;
+    qlonglong source_size;
 };
 
 #endif // COUGARBACKUP_H

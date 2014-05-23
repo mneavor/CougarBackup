@@ -30,16 +30,34 @@ CougarBackup::CougarBackup(QWidget *parent) :
     /*Grab config settings*/
     get_config();
 }
+void CougarBackup::update_backup_stats()
+{
+    backup_stats.clear();
+
+    // List OS
+    backup_stats.append("OS: ");
+    backup_stats.append(os_str);
+
+    // Take the backup size in bytes, convert it to GB
+    backup_stats.append("\nBackupSize: ");
+    backup_stats.append(QString::number((double)source_size/1000000000,'f', 3));
+    backup_stats.append(" GB");
+
+    // Write to backup_stats box
+    ui->textBrowser_backupStats->setText(backup_stats);
+}
+
 void CougarBackup::os_combobox()
 {
     os_str.clear();
     os_str = ui->comboBox_os->currentText();
-    ui->textBrowser_backupStats->setText(os_str);
+    update_backup_stats();
 }
 
 void CougarBackup::start_button()
 {
-    // Code Here
+    source_size = compute_source_size(source_str);
+    update_backup_stats();
 }
 
 void CougarBackup::cancel_button()
@@ -51,6 +69,7 @@ void CougarBackup::browse_button()
 {
     source_str = QFileDialog::getExistingDirectory();
     ui->textBrowser_source->setText(source_str);
+    update_backup_stats();
 }
 
 void CougarBackup::name_textfield()
@@ -67,6 +86,7 @@ void CougarBackup::number_textfield()
 
 void CougarBackup::calculate_destination()
 {
+    get_config();
     destination_str.clear();
     //default_directory.clear();
     //default_directory.append("/media/backupfolder/");
@@ -74,6 +94,7 @@ void CougarBackup::calculate_destination()
     destination_str.append(name_text);
     destination_str.append(number_text);
     ui->textBrowser_destination->setText(destination_str);
+    update_backup_stats();
 }
 
 void CougarBackup::get_config()
@@ -86,6 +107,28 @@ void CougarBackup::get_config()
     QString line = in.readLine();//read in default directory
     default_directory.clear();
     default_directory.append(line);
+}
+
+qlonglong CougarBackup::compute_source_size(const QString &path)
+{
+    // http://www.informit.com/articles/article.aspx?p=1405549&seqNum=3
+    // Credit to Jasmin Blanchette and Mark Summerfield
+    QDir dir(path);
+    qlonglong size = 0;
+
+    // Needs to be updated to filter out symlinks
+    QStringList filters;
+    //foreach (QByteArray format, QImageReader::supportedImageFormats())
+    //   filters += "*." + format;
+
+    foreach (QString file, dir.entryList(filters, QDir::Files))
+        size += QFileInfo(dir, file).size();
+
+    foreach (QString subDir, dir.entryList(QDir::Dirs
+                                           | QDir::NoDotAndDotDot))
+        size += CougarBackup::compute_source_size(path + QDir::separator() + subDir);
+
+    return size;
 }
 
 CougarBackup::~CougarBackup()
