@@ -40,7 +40,7 @@ void CougarBackup::update_backup_stats()
 
     // Take the backup size in bytes, convert it to GB
     backup_stats.append("\nBackupSize: ");
-    backup_stats.append(QString::number((double)source_size/1000000000,'f', 3));
+    backup_stats.append(QString::number(source_size/1000000000,'f', 3));
     backup_stats.append(" GB");
 
     // Write to backup_stats box
@@ -112,25 +112,13 @@ void CougarBackup::get_config()
     default_directory.append(line);
 }
 
-qlonglong CougarBackup::compute_source_size(const QString &path)
+double CougarBackup::compute_source_size(const QString &path)
 {
-    // http://www.informit.com/articles/article.aspx?p=1405549&seqNum=3
-    // Credit to Jasmin Blanchette and Mark Summerfield
-    QDir dir(path);
-    qlonglong size = 0;
-
-    // Needs to be updated to filter out symlinks
-    QStringList filters;
-    //foreach (QByteArray format, QImageReader::supportedImageFormats())
-    //   filters += "*." + format;
-
-    foreach (QString file, dir.entryList(filters, QDir::Files))
-        size += QFileInfo(dir, file).size();
-
-    foreach (QString subDir, dir.entryList(QDir::Dirs
-                                           | QDir::NoDotAndDotDot))
-        size += CougarBackup::compute_source_size(path + QDir::separator() + subDir);
-
+    string s1 = "du -c ";
+    string s2 = path.toStdString();
+    string s3 = " | tail -n 1 | awk '{print $1}'";
+    string s4 = s1 + s2 + s3;
+    double size = system(s4.c_str());
     return size;
 }
 
