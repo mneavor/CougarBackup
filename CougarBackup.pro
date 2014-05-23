@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        cougarbackup.cpp
+        cougarbackup.cpp \
+    rsync.cpp
 
-HEADERS  += cougarbackup.h
+HEADERS  += cougarbackup.h \
+    rsync.h
 
 FORMS    += cougarbackup.ui
