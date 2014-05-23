@@ -9,7 +9,7 @@
 #include <QTextStream>
 #include <string>
 #include <QComboBox>
-#include <queue>
+#include <vector>
 #include <QDir>
 using namespace std;
 
@@ -48,7 +48,7 @@ private:
     QString os_str;
     QString default_directory;
     string source_size;
-    queue<QDir> folders;
+    vector<QDir> folders;
     QString folder_list;
 };
 

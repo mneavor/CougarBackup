@@ -57,9 +57,10 @@ void CougarBackup::start_button()
 {
     source_size = compute_source_size(source_str);
     update_backup_stats();
+    get_directories();
     list_directories();
+    int weeee = 4;
     //source_size = compute_source_size(source_str);
-    //update_backup_stats();
 }
 
 void CougarBackup::cancel_button()
@@ -151,36 +152,36 @@ void CougarBackup::get_directories(){
 
        QDir users(source_str + "/Users");
 
-       folders.push(users);
+       folders.push_back(users);
 
 
     }else if(os_str == "Linux"){//Linux
 
            QDir users(source_str + "/Home"); //I think this will be the right path
 
-           folders.push(users);
+           folders.push_back(users);
 
         }else{//is windows
 
-            QDir config(source_str + "\\Windows\\Systm32\\config");
-            QDir users("\\Users");
-
-            folders.push(config);
-            folders.push(users);
+            //QDir config(source_str + "\\Windows\\System32\\config");
+            QDir config(source_str + "/Windows/System32/config"); // Because we're working in UNIX, we don't have to deal with windows style directories
+            //QDir users("\\Users");
+            QDir users(source_str + "/Users");
+            folders.push_back(config);
+            folders.push_back(users);
     }
 }
 
 void CougarBackup::list_directories()
 {
-
+    folder_list.clear();
     for (int i = 0; i < (int)folders.size(); i++)
     {
-        QDir item = folders.front();
-        folders.pop();
+        QDir item = folders[i];
         folder_list.append(item.absolutePath());
         folder_list.append("\n");
-        ui->textBrowser_destination->setText(destination_str);
     }
+     ui->textBrowser_folders->setText(folder_list); // This isn't updating
 }
 
 CougarBackup::~CougarBackup()
