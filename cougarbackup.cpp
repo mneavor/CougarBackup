@@ -55,6 +55,9 @@ void CougarBackup::os_combobox()
 
 void CougarBackup::start_button()
 {
+    source_size = compute_source_size(source_str);
+    update_backup_stats();
+    list_directories();
     //source_size = compute_source_size(source_str);
     //update_backup_stats();
 }
@@ -67,7 +70,6 @@ void CougarBackup::cancel_button()
 void CougarBackup::browse_button()
 {
     source_str = QFileDialog::getExistingDirectory();
-    source_size = compute_source_size(source_str);
     ui->textBrowser_source->setText(source_str);
     update_backup_stats();
 }
@@ -165,9 +167,20 @@ void CougarBackup::get_directories(){
 
             folders.push(config);
             folders.push(users);
-
     }
+}
 
+void CougarBackup::list_directories()
+{
+
+    for (int i = 0; i < (int)folders.size(); i++)
+    {
+        QDir item = folders.front();
+        folders.pop();
+        folder_list.append(item.absolutePath());
+        folder_list.append("\n");
+        ui->textBrowser_destination->setText(destination_str);
+    }
 }
 
 CougarBackup::~CougarBackup()

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>770</width>
     <height>279</height>
    </rect>
   </property>
@@ -261,6 +261,29 @@
    </property>
    <property name="text">
     <string>Backup Statistics:</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser_folders">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>30</y>
+     <width>351</width>
+     <height>241</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_folders">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>10</y>
+     <width>111</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Files and Folders:</string>
    </property>
   </widget>
  </widget>

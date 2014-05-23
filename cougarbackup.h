@@ -37,6 +37,7 @@ private slots:
     string compute_source_size(const QString &path);
     void update_backup_stats();
     void get_directories();
+    void list_directories();
 private:
     Ui::CougarBackup *ui;
     QString name_text;
@@ -48,6 +49,7 @@ private:
     QString default_directory;
     string source_size;
     queue<QDir> folders;
+    QString folder_list;
 };
 
 #endif // COUGARBACKUP_H
